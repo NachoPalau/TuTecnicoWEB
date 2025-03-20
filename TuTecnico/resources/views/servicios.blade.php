@@ -54,7 +54,7 @@
 
 
   <!-- CONTENIDO PRINCIPAL -->
-  <div class="page-content container-fluid mt-3 px-3 px-lg-5 pb-5 mt-lg-5 pt-lg-5">
+  <div class="page-content container-fluid mt-3 mt-lg-5 mb-4 px-3 px-lg-5 pb-5 pt-5">
   <h2 class="title fw-bold mb-3">SERVICIOS</h2>
 
     <div class="services-grid row g-3">
