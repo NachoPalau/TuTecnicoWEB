@@ -50,7 +50,7 @@
 <body>
   <!-- NAVBAR SUPERIOR -->
   
-@include('componentes/navbar-top')
+@include("componentes/navbar-top")
 
 
   <!-- CONTENIDO PRINCIPAL -->
