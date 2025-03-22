@@ -10,8 +10,9 @@ return new class extends Migration {
             $table->id();
             $table->string('nombre');
             $table->string('email')->unique();
-            $table->string('telefono')->nullable();
-            $table->text('especialidad')->nullable();
+            $table->string('telefono');
+            $table->string('localidad');
+            $table->text('especialidad');
             $table->timestamps();
         });
     }

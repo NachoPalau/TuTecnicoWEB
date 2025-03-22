@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClienteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('servicios');
 });
+
+Route::get('/carpinteria', function(){
+    return view('carpinteria');
+})->name('carpinteria');
+
+Route::post('/filtrar_servicio', 
+[ClienteController::class,'filtrar_servicio'])->name('filtrar_servicio');

@@ -22,9 +22,8 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function filtrar_servicio(Request $request){
+        
     }
 
     /**

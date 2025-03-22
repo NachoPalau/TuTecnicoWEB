@@ -55,62 +55,44 @@
 
   <!-- CONTENIDO PRINCIPAL -->
   <div class="page-content container-fluid mt-3 mt-lg-5 mb-4 px-3 px-lg-5 pb-5 pt-5">
-  <h3 class="d-none d-lg-flex">Localidad</h3>
-
-  <h2 class="title fw-bold mb-3">SERVICIOS</h2>
+  <div class="title fw-bold mb-3">
+  <h2>SERVICIOS</h2>
+  <form action="{{route('filtrar_servicio')}}">
+    @csrf
+  <select name="localidad" >
+    <option value="Ciudad"></option>
+    @foreach ($localidades as $localidad)
+      <option value="{{$localidad}}"></option>
+    @endforeach
+  </select>  
+  </form>
+  </div>
 
     <div class="services-grid row g-3">
       <!-- Servicio 1: Carpintería -->
       <div class="service-card col-12 col-md-6 col-lg-4">
-        <a href="{{route('carpinteria')}}">
         <img src="IMG/servicios/carpinteria.png" alt="Carpintería" class="service-img">
-        </a>
-        <p class="service-title">CARPINTERÍA</p>
+        <p class="service-title">María López</p>
       </div>
 
       <!-- Servicio 2: Electricidad -->
       <div class="service-card col-12 col-md-6 col-lg-4">
         <img src="IMG/servicios/electricidad.png" alt="Electricidad" class="service-img">
-        <p class="service-title">ELECTRICIDAD</p>
+        <p class="service-title">Juan Cabreras</p>
       </div>
 
       <!-- Servicio 3: Pintura -->
       <div class="service-card col-12 col-md-6 col-lg-4">
         <img src="IMG/servicios/pintura.png" alt="Pintura" class="service-img">
-        <p class="service-title">PINTURA</p>
+        <p class="service-title">Kim Álvarez</p>
       </div>
 
       <!-- Servicio 4: Fontanería -->
       <div class="service-card col-12 col-md-6 col-lg-4">
         <img src="IMG/servicios/fontaneria.png" alt="Fontanería" class="service-img">
-        <p class="service-title">FONTANERÍA</p>
+        <p class="service-title">Carlos Ramírez</p>
       </div>
 
-      <!-- Servicio 5: Jardinería -->
-      <div class="service-card col-12 col-md-6 col-lg-4">
-        <img src="IMG/servicios/jardineria.png" alt="Jardinería" class="service-img">
-        <p class="service-title">JARDINERÍA</p>
-      </div>
-
-      <!-- Servicio 6: Climatización -->
-      <div class="service-card col-12 col-md-6 col-lg-4">
-        <img src="IMG/servicios/obra.png" alt="Climatización" class="service-img">
-        <p class="service-title">OBRA</p>
-      </div>
-
-      <!-- Servicio 7: Electrodomésticos -->
-      <div class="service-card col-12 col-md-6 col-lg-4">
-        <img src="IMG/servicios/mudanzas.png" alt="Electrodomésticos" class="service-img">
-        <p class="service-title">MUDANZA</p>
-      </div>
-
-      <!-- Servicio 8: Cerrajería -->
-      <div class="service-card col-12 col-md-6 col-lg-4">
-        <img src="IMG/servicios/cerrajeria.png" alt="Cerrajería" class="service-img">
-        <p class="service-title">CERRAJERÍA</p>
-      </div>
-    </div>
-  </div>
 
   <!-- MENÚ INFERIOR (SOLO MÓVIL) -->
   

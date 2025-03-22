@@ -5,7 +5,7 @@
 
     <!-- navbar-móvil (visible solo en móviles y tablets) -->
     <div class="navbar-left d-flex d-lg-none align-items-center">
-      <span class="bold-text fw-bold me-2">Calle Cirilo Amoros</span>
+      <span class="bold-text fw-bold me-2">Valencia</span>
       <img src="IMG/navbar-1/flechita.png" alt="Desplegar">
     </div>
 
