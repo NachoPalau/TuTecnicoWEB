@@ -9,4 +9,4 @@ Plataforma para conectar usuarios con técnicos locales.  Encuentra, solicita y 
 ## 📋 Uso
 1. Regístrate o inicia sesión.
 2. Busca el servicio que necesitas.
-3. Contacta con un técnico y agenda una cita.
+3. Contacta con un técnico y te agendará una cita.
