@@ -22,10 +22,7 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function filtrar_servicio(Request $request){
-        
-    }
-
+    
     /**
      * Store a newly created resource in storage.
      *

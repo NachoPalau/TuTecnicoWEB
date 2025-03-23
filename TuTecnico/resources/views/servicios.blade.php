@@ -55,14 +55,13 @@
 
   <!-- CONTENIDO PRINCIPAL -->
   <div class="page-content container-fluid mt-3 mt-lg-5 mb-4 px-3 px-lg-5 pb-5 pt-5">
-  <h3 class="d-none d-lg-flex">Localidad</h3>
 
   <h2 class="title fw-bold mb-3">SERVICIOS</h2>
 
     <div class="services-grid row g-3">
       <!-- Servicio 1: Carpintería -->
       <div class="service-card col-12 col-md-6 col-lg-4">
-        <a href="{{route('carpinteria')}}">
+        <a href="{{route('servicio', ['especialidad' => 'carpinteria'])}}">
         <img src="IMG/servicios/carpinteria.png" alt="Carpintería" class="service-img">
         </a>
         <p class="service-title">CARPINTERÍA</p>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ProfesionalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,9 +19,6 @@ Route::get('/', function () {
     return view('servicios');
 });
 
-Route::get('/carpinteria', function(){
-    return view('carpinteria');
-})->name('carpinteria');
-
-Route::post('/filtrar_servicio', 
-[ClienteController::class,'filtrar_servicio'])->name('filtrar_servicio');
+Route::match(['GET', 'POST'], '/servicio/{especialidad}',
+ [App\Http\Controllers\ProfesionalController::class, 'listEspecialidad'])
+ ->name('servicio');
