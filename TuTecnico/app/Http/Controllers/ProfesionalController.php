@@ -33,7 +33,7 @@ class ProfesionalController extends Controller
         $profesionales = Profesional::especialidadYLocalidad($especialidad, $localidad);
     }
 
-    // Retornamos la vista correspondiente con los datos
+    // Retornamos la vista con los datos:
     return view('servicio', [
         'localidades' => $localidades,
         'profesionales' => $profesionales,
