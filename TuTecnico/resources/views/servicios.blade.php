@@ -69,44 +69,58 @@
 
       <!-- Servicio 2: Electricidad -->
       <div class="service-card col-12 col-md-6 col-lg-4">
-        <img src="IMG/servicios/electricidad.png" alt="Electricidad" class="service-img">
-        <p class="service-title">ELECTRICIDAD</p>
+      <a href="{{route('servicio', ['especialidad' => 'electricidad'])}}">  
+      <img src="IMG/servicios/electricidad.png" alt="Electricidad" class="service-img">
+       </a>
+      <p class="service-title">ELECTRICIDAD</p>
       </div>
 
       <!-- Servicio 3: Pintura -->
       <div class="service-card col-12 col-md-6 col-lg-4">
-        <img src="IMG/servicios/pintura.png" alt="Pintura" class="service-img">
-        <p class="service-title">PINTURA</p>
+      <a href="{{route('servicio', ['especialidad' => 'pintura'])}}">
+      <img src="IMG/servicios/pintura.png" alt="Pintura" class="service-img">
+      </a>  
+      <p class="service-title">PINTURA</p>
       </div>
 
       <!-- Servicio 4: Fontanería -->
       <div class="service-card col-12 col-md-6 col-lg-4">
-        <img src="IMG/servicios/fontaneria.png" alt="Fontanería" class="service-img">
-        <p class="service-title">FONTANERÍA</p>
+      <a href="{{route('servicio', ['especialidad' => 'fontaneria'])}}">
+      <img src="IMG/servicios/fontaneria.png" alt="Fontanería" class="service-img">
+      </a>  
+      <p class="service-title">FONTANERÍA</p>
       </div>
 
       <!-- Servicio 5: Jardinería -->
       <div class="service-card col-12 col-md-6 col-lg-4">
-        <img src="IMG/servicios/jardineria.png" alt="Jardinería" class="service-img">
-        <p class="service-title">JARDINERÍA</p>
+      <a href="{{route('servicio', ['especialidad' => 'jardineria'])}}">
+      <img src="IMG/servicios/jardineria.png" alt="Jardinería" class="service-img">
+      </a> 
+      <p class="service-title">JARDINERÍA</p>
       </div>
 
       <!-- Servicio 6: Climatización -->
       <div class="service-card col-12 col-md-6 col-lg-4">
-        <img src="IMG/servicios/obra.png" alt="Climatización" class="service-img">
-        <p class="service-title">OBRA</p>
+      <a href="{{route('servicio', ['especialidad' => 'obra'])}}">
+      <img src="IMG/servicios/obra.png" alt="Climatización" class="service-img">
+      </a>
+      <p class="service-title">OBRA</p>
       </div>
 
       <!-- Servicio 7: Electrodomésticos -->
       <div class="service-card col-12 col-md-6 col-lg-4">
-        <img src="IMG/servicios/mudanzas.png" alt="Electrodomésticos" class="service-img">
-        <p class="service-title">MUDANZA</p>
+      <a href="{{route('servicio', ['especialidad' => 'mudanza'])}}">
+      <img src="IMG/servicios/mudanzas.png" alt="Electrodomésticos" class="service-img">
+      </a>
+      <p class="service-title">MUDANZA</p>
       </div>
 
       <!-- Servicio 8: Cerrajería -->
       <div class="service-card col-12 col-md-6 col-lg-4">
-        <img src="IMG/servicios/cerrajeria.png" alt="Cerrajería" class="service-img">
-        <p class="service-title">CERRAJERÍA</p>
+      <a href="{{route('servicio', ['especialidad' => 'cerrajeria'])}}">
+      <img src="IMG/servicios/cerrajeria.png" alt="Cerrajería" class="service-img">
+      </a>
+      <p class="service-title">CERRAJERÍA</p>
       </div>
     </div>
   </div>

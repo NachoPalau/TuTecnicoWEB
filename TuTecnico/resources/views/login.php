@@ -51,35 +51,13 @@
 <form method="POST" class="m-5 p-5" >
     @csrf
 
-    <label>Nombre</label>
-    <input type="text" name="name" required>
-    <br><br>
     <label>Email</label>
     <input type="email" name="email" required>
-    <br><br>
-    <label>Teléfono</label>
-    <input type="text" name="telefono">
     <br><br>
     <label>Contraseña</label>
     <input type="password" name="password" required>
     <br><br>
-    <label>Tipo de Usuario</label>
-    <select name="tipo" id="tipo" onchange="mostrarCampos()">
-        <option value="cliente">Cliente</option>
-        <option value="profesional">Profesional</option>
-    </select>
-    <br><br>
-    <!-- Campos para clientes -->
-    <div id="campos-cliente">
-        
-    </div>
-
-    <!-- Campos para profesionales -->
-    <div id="campos-profesional" style="display:none;">
-        <sele>Especialidad</sele>
-        <select type="text" name="especialidad">
-    </div>
-
+    
     <button type="submit">Registrarse</button>
 </form>
 @include('componentes/navbar-top')

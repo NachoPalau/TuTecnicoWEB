@@ -7,11 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profesional extends Model
 {
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
+    protected $fillable = ['user_id', 'especialidad'];
+
     use HasFactory;
 
     public static function localidades(){ 
 
-    return self::distinct()->pluck('localidad');
+        return self::join('users', 'profesionals.user_id', '=', 'users.id')
+        ->distinct()
+        ->pluck('users.localidad');
     }
 
     public static function especialidadYLocalidad($especialidad, $localidad)
@@ -20,4 +29,19 @@ class Profesional extends Model
                    ->where('localidad', $localidad)
                    ->get();
     }
+    
+    
+    public const especialidades= [
+        'Carpinteria', 
+        'Electricidad', 
+        'Pintura', 
+        'Fontaneria', 
+        'Jardineria',
+        'Obra',
+        'Mudanza',
+        'Cerrajeria'
+    ];
+
+    
+    
 }
