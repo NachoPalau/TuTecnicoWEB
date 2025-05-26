@@ -5,9 +5,8 @@
     <img src="{{ asset("IMG/logo/TuTecnicoG.png")}}" alt="Logo de la empresa" class="d-none d-lg-block mr-lg-3" height="55">
     </a>
     <!-- navbar-móvil (visible solo en móviles y tablets) -->
-    <div class=" d-flex d-lg-none align-items-end position-absolute ">
-      <span class="bold-text fw-bold ">Valencia</span>
-      <img src="{{ asset("IMG/navbar-1/flechita.png")}}" alt="Desplegar">
+    <div class=" d-flex d-lg-none position-absolute" style="">
+      <img src="{{ asset("IMG/logo/TuTecnicoG_texto.png")}}" alt="Desplegar" height="20">
     </div>
 
     <!-- Tres divs (Servicios, Reservas, Mensajes) - Solo en desktop -->
@@ -18,7 +17,7 @@
     </div>
 
     <!-- Login (visible en todos los dispositivos) -->
-    <a href="{{ route('register') }}" class="px-1">Registrarse</a>
+    <a href="{{ route('login') }}" class="px-1"><img src="{{ "IMG/navbar-1/login.png" }}" alt=""></a>
     
   </div>
 </nav>
