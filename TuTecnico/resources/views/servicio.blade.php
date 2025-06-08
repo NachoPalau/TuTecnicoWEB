@@ -19,9 +19,9 @@
 <body>
   @include("componentes/navbar-top")
 
-  <div class="container-fluid mt-3 mt-lg-5 mb-5 pb-5">
+  <div class="container-fluid mt-5 mt-lg-5 mb-5 pb-5">
     <div class="row justify-content-center">
-      <div class="col-11 col-md-10 col-lg-9">
+      <div class="mt-5 col-11 col-md-10 col-lg-9">
         <h2 class="fw-bold mb-4">SERVICIOS - {{ strtoupper($especialidad) }}</h2>
         
         <div class="row mb-4">

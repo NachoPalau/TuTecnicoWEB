@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Livewire\PrivateChat;
 
 
 Route::get('/', function () {
@@ -27,5 +27,7 @@ Route::match(['GET', 'POST'], '/servicio/{especialidad}',
 });
 Route::get('/perfilProf/{id}', [App\Http\Controllers\ProfesionalController::class, 'show'])
     ->name('perfilProf');
+
+Route::middleware(['auth'])->get('/chat/{chatWithUserId}', PrivateChat::class);
 
 require __DIR__.'/auth.php';
