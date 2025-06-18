@@ -7,10 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profesional extends Model
 {
-    public function user()
+
+    protected $table = 'profesionales';
+
+   // Profesional.php
+public function user()
 {
     return $this->belongsTo(User::class);
 }
+
+
 
     protected $fillable = ['user_id', 'especialidad'];
 
@@ -18,7 +24,7 @@ class Profesional extends Model
 
     public static function localidades(){ 
 
-        return self::join('users', 'profesionals.user_id', '=', 'users.id')
+        return self::join('users', 'profesionales.user_id', '=', 'users.id')
         ->distinct()
         ->pluck('users.localidad');
     }

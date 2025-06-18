@@ -6,8 +6,10 @@
     </a>
     <!-- navbar-móvil (visible solo en móviles y tablets) -->
     <div class=" d-flex d-lg-none position-absolute" style="">
-      <img src="{{ asset("IMG/logo/TuTecnicoG_texto.png")}}" alt="Desplegar" height="20">
-    </div>
+        <a href="{{ route('servicios') }}">
+           <img src="{{ asset("IMG/logo/TuTecnicoG_texto.png")}}" alt="Desplegar" height="20">
+        </a>
+     </div>
 
     <!-- Tres divs (Servicios, Reservas, Mensajes) - Solo en desktop -->
     <div class="d-none d-lg-flex justify-content-center align-items-center flex-grow-1">
@@ -17,7 +19,22 @@
     </div>
 
     <!-- Login (visible en todos los dispositivos) -->
-    <a href="{{ route('login') }}" class="px-1"><img src="{{ "IMG/navbar-1/login.png" }}" alt=""></a>
-    
+    @guest
+    <!-- Usuario NO autenticado -->
+    <a href="{{ route('login') }}" class="px-1">
+        <img src="{{ asset('IMG/navbar-1/login.png') }}" alt="Login">
+    </a>
+@endguest
+
+@auth
+    <!-- Usuario autenticado -->
+    <form method="POST" action="{{ route('logout') }}" class="">
+        @csrf
+        <button type="submit" class="text-black btn btn-link px-1 text-decoration-none">
+            Cerrar sesión
+        </button>
+    </form>
+@endauth
+
   </div>
 </nav>

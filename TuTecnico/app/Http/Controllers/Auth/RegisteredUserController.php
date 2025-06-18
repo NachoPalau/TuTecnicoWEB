@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Cliente;
+use App\Models\Profesional;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -12,13 +14,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
-use App\Models\Cliente;
-use App\Models\Profesional;
 
 class RegisteredUserController extends Controller
 {
     /**
-     * Display the registration view.
+     * Mostrar la vista de registro.
      */
     public function create(): View
     {
@@ -26,50 +26,56 @@ class RegisteredUserController extends Controller
     }
 
     /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * Procesar el registro de usuario.
      */
-
     public function store(Request $request): RedirectResponse
-    {            
-        //dd($request->all());// $request->validate([...]));
-
-    $request->validate([
-        'name' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-        'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        'telefono' => ['required', 'string', 'max:20'],
-        'tipo' => ['required', 'in:cliente,profesional'],
-        'especialidad' => ['required_if:,profesional', 'nullable', 'string', 'max:255'],
-        'localidad' => ['required_if:tipo,profesional', 'string', 'max:255'],
-    ]);
-
-    $user = User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' => Hash::make($request->password),
-        'telefono' => $request->telefono,
-        'tipo' => $request->tipo,
-        'localidad' => $request->localidad ?? null
-    ]);
-
-
-    if ($request->tipo === 'cliente') {
-        Cliente::create([
-            'user_id' => $user->id,
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'telefono' => ['required', 'string', 'max:20'],
+            'tipo' => ['required', 'in:cliente,profesional'],
+            'especialidad' => ['required_if:tipo,profesional', 'nullable', 'string', 'max:255'],
+            'localidad' => ['required_if:tipo,profesional', 'string', 'max:255'],
+            'imagen' => ['image', 'max:2048'],
         ]);
-    } else {
-        Profesional::create([
-            'user_id' => $user->id,
-            'especialidad' => $request->especialidad,
-            'localidad' => $request->localidad,
+
+        $nombreImagen = null;
+
+        // Subida de imagen solo si es profesional
+        if ($request->tipo === 'profesional' && $request->hasFile('imagen') && $request->file('imagen')->isValid()) {
+            $imagen = $request->file('imagen');
+            $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
+            $imagen->move(public_path('img/perfiles'), $nombreImagen);
+        }
+
+        // Crear el usuario base
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'telefono' => $request->telefono,
+            'tipo' => $request->tipo,
+            'localidad' => $request->localidad ?? null,
         ]);
-    }
+
+        // Crear el modelo relacionado
+        if ($request->tipo === 'cliente') {
+            Cliente::create([
+                'user_id' => $user->id,
+            ]);
+        } else {
+            Profesional::create([
+                'user_id' => $user->id,
+                'especialidad' => $request->especialidad,
+                'localidad' => $request->localidad,
+                'imagen' => $nombreImagen,
+            ]);
+        }
+
         event(new Registered($user));
 
-        Auth::login($user);
-
-        return redirect()->intended('/');
+        return redirect()->route('login')->with('success', 'Usuario registrado. Inicia sesión.');
     }
 }

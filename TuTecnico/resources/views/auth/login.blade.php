@@ -74,18 +74,11 @@
             </div>
           </form>
         </div>
-      </div>
     </div>
   </div>
 
   <!-- Bootstrap Bundle JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    function mostrarCampos() {
-      let tipo = document.getElementById("tipoUsuario").value;
-      document.getElementById("campos-profesional").style.display = (tipo === "profesional") ? "block" : "none";
-    }
-    document.addEventListener("DOMContentLoaded", mostrarCampos);
-  </script>
+ 
 </body>
 </html>

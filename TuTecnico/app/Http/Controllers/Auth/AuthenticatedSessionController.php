@@ -29,7 +29,17 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended('/');
+        $user = Auth::user();
+
+        if ($user->tipo === 'cliente') {
+            return redirect()->route('servicios');
+        }
+        if ($user->tipo === 'profesional') {
+            return redirect()->route('clientes');
+        }
+
+        // Default redirect if tipo is not recognized
+        return redirect()->route('auth.login');
     }
 
     /**
