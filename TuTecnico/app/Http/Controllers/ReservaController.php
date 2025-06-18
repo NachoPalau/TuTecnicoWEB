@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reserva;
+use App\Models\Profesional;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ReservaController extends Controller
@@ -33,10 +35,17 @@ class ReservaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+   public function store(Request $request)
+{
+    $user = auth()->user();
+
+    if ($user->tipo == 'profesional') {
+        // lógica para cliente
+    } elseif ($user->tipo== 'cliente') {
+        // lógica para profesional
+    } 
+}
+
 
     /**
      * Display the specified resource.

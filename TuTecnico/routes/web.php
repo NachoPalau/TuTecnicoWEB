@@ -52,6 +52,7 @@ Route::match(['get', 'post'], '/perfilProf/{id}', [App\Http\Controllers\Profesio
 Route::middleware(['auth'])->group(function () {
     Route::get('/profesional/estadisticas', [ProfesionalController::class, 'estadisticas'])->name('profesional.estadisticas');
 });
+Route::post('/reservar', [App\Http\Controllers\ReservaController::class, 'store'])->name('reservar');
 
 Route::middleware(['auth'])->get('/chat/{chatWithUserId}', PrivateChat::class);
 
