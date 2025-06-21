@@ -1,7 +1,7 @@
 <section>
   <div class=" m-5 d-flex justify-content-center align-items-center flex-column">
 
-    <form method="post" action="{{ route('perfilProf', $profesional->user->id) }}" class="w-100" style="max-width: 480px;">
+    <form method="post" action="{{ route('perfilProf', $profesional->id) }}" class="w-100" style="max-width: 480px;">
       @csrf
       
 

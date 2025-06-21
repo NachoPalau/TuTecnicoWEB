@@ -8,7 +8,7 @@
               <div class="small mt-1">Perfil</div>
           </div>
       </a>
-      <a href="{{ route('reserva.estado',['id'=> auth()->user()->id]) }}" class="text-decoration-none text-dark text-center px-2">
+      <a href="{{ route('reservas',['id'=> auth()->user()->id]) }}" class="text-decoration-none text-dark text-center px-2">
           <div>
               <img src="{{ asset('IMG/navbar-2/calendario.png') }}" alt="Reservas" class="img-fluid" style="width: 24px; height: 24px;">
               <div class="small mt-1">Reservas</div>

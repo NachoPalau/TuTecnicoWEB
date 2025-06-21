@@ -51,12 +51,19 @@
             <p><i class="bi bi-envelope me-2"></i>{{ $profesional->user->telefono }}</p>
            @auth
             @if (auth()->user()->tipo === 'cliente')
-              <a href="{{ route('reservas', ['id' => $profesional->user->id]) }}" class="btn btn-primary w-100 mt-2">
+              <a href="{{ route('reservas', ['id' => $profesional->id]) }}" class="btn btn-primary w-100 mt-2">
                 RESERVAR
               </a>
             @endif
            @endauth
            
+           @auth
+            @if (auth()->user()->tipo === 'profesional')
+              <a href="{{ route('misReservas', ['id' => $profesional->id]) }}" class="btn btn-primary w-100 mt-2">
+                Mis reservas
+              </a>
+            @endif
+           @endauth
             
             @auth
             @if (auth()->user()->tipo === 'cliente')

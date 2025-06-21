@@ -21,38 +21,46 @@ class ReservaController extends Controller
      
 public function crear(Request $request)
 {
-    $request->validate([
-        'fecha' => 'required|date',
-        'profesional_id' => 'required|exists:profesionales,id',
-        'cliente_id' => 'required|exists:clientes,id',
-    ]);
+   $request->validate([
+    'fecha' => 'required|date',
+    'profesional_id' => 'required|integer|exists:profesionales,id',
+]);
 
-    // Evitar duplicados: comprobar si ya existe una reserva en esa fecha
-   $yaReservado = Reserva::where('fecha', $request->fecha)
+
+    $cliente = Cliente::where('user_id', auth()->id())->first();
+
+    if (!$cliente) {
+        return redirect()->back();
+    }
+
+    // Validar si ya hay reserva pendiente en ese día y hora para el profesional
+    $fecha = Carbon::parse($request->fecha);
+    $inicioSlot = $fecha->copy()->startOfMinute();
+    $finSlot = $fecha->copy()->endOfMinute();
+
+  $yaReservado = Reserva::where('fecha', $request->fecha)
     ->where('profesional_id', $request->profesional_id)
+    ->where('cliente_id', $cliente->id) 
     ->where('estado', 'pendiente')
     ->exists();
+
 
     if ($yaReservado) {
         return redirect()->back();
     }
 
-  $cliente = Cliente::where('user_id', auth()->id())->first();
-
-if (!$cliente) {
-    return redirect()->back();
-}
-
-Reserva::create([
+   Reserva::create([
     'fecha' => $request->fecha,
-    'profesional_id' => $request->profesional_id,
-    'cliente_id' => $cliente->id, 
+    'profesional_id' => $request->profesional_id, // debe ser un número
+    'cliente_id' => $cliente->id, // debe ser número, no texto
     'estado' => 'pendiente',
 ]);
 
 
     return redirect()->back();
 }
+
+
 public function cancelar(Request $request, $id)
 {
     $reserva = Reserva::findOrFail($id); // Usa el ID que Laravel te pasa, no lo fuerces
@@ -186,19 +194,25 @@ public function mostrarReservas(Request $request, $id) {
 }
 public function misReservas()
 {
-    $cliente = Cliente::where('user_id', auth()->id())->first();
+    if ($cliente = Cliente::where('user_id', auth()->id())->first()) {
+        $reservas = Reserva::with('profesional.user')
+            ->where('cliente_id', $cliente->id)
+            ->orderBy('fecha', 'asc')
+            ->get();
 
-    if (!$cliente) {
+        return view('cliente/misReservas', compact('reservas'));
+    } elseif ($profesional = Profesional::where('user_id', auth()->id())->first()) {
+        $reservas = Reserva::with('cliente.user')
+            ->where('profesional_id', $profesional->id)
+            ->orderBy('fecha', 'asc')
+            ->get();
+
+        return view('cliente/misReservas', compact('reservas'));
+    } else {
         abort(403, 'No autorizado.');
     }
-
-    $reservas = Reserva::with('profesional.user')
-        ->where('cliente_id', $cliente->id)
-        ->orderBy('fecha', 'asc')
-        ->get();
-
-    return view('cliente/misReservas', compact('reservas'));
 }
+
 
 
     /**

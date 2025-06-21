@@ -54,7 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profesional/estadisticas', [ProfesionalController::class, 'estadisticas'])->name('profesional.estadisticas');
 });
 Route::post('/reservar', [ReservaController::class, 'store'])->name('reservar');
-Route::post('/reserva/{id}/estado', [ReservaController::class, 'cambiarEstado'])->name('reserva.estado');
+Route::match(['get','post'],'/reserva/{id}/estado', [ReservaController::class, 'cambiarEstado'])->name('reserva.estado');
 Route::match(['get', 'post'], '/reservas/{id}', [ReservaController::class, 'mostrarReservas'])->name('reservas');
 Route::post('/reserva/crear', [ReservaController::class, 'crear'])->name('reserva.crear');
 Route::post('/reserva/cancelar/{id}', [ReservaController::class, 'cancelar'])->name('reserva.cancelar');

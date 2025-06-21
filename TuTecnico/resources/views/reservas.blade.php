@@ -104,12 +104,12 @@
           @endif
       @else
           <form method="POST" action="{{ route('reserva.crear') }}">
-              @csrf
-              <input type="hidden" name="fecha" value="{{ $slot }}" />
-              <input type="hidden" name="profesional_id" value="{{ $profesional->id }}" />
-              <input type="hidden" name="cliente_id" value="{{ $cliente->id }}" />
-              <button class="btn btn-outline-primary btn-sm">Reservar</button>
-          </form>
+    @csrf
+    <input type="hidden" name="fecha" value="{{ $slot }}" />
+    <input type="hidden" name="profesional_id" value="{{ $profesional->id }}" />
+    <button class="btn btn-outline-primary btn-sm">Reservar</button>
+</form>
+
       @endif
   @endif
 </td>

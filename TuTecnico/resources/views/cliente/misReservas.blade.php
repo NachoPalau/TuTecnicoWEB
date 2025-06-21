@@ -20,7 +20,7 @@
   @include("componentes/navbar-top")
 
 
-<div class="container mt-5 ">
+<div class="container mt-5">
     <h2 class="mt-5 pt-3 pt-lg-5">Mis reservas</h2>
 
     @if($reservas->isEmpty())
@@ -30,7 +30,13 @@
             <thead>
                 <tr>
                     <th>Fecha</th>
-                    <th>Profesional</th>
+                    @auth
+                        @if(auth()->user()->tipo === 'cliente')
+                            <th>Profesional</th>
+                        @elseif(auth()->user()->tipo === 'profesional')
+                            <th>Cliente</th>
+                        @endif
+                    @endauth
                     <th>Estado</th>
                 </tr>
             </thead>
@@ -38,7 +44,15 @@
                 @foreach($reservas as $reserva)
                     <tr>
                         <td>{{ $reserva->fecha->format('d/m/Y H:i') }}</td>
-                        <td>{{ $reserva->profesional->user->name ?? 'Desconocido' }}</td>
+
+                        @auth
+                            @if(auth()->user()->tipo === 'cliente')
+                                <td>{{ $reserva->profesional->user->name ?? 'Desconocido' }}</td>
+                            @elseif(auth()->user()->tipo === 'profesional')
+                                <td>{{ $reserva->cliente->user->name ?? 'Desconocido' }}</td>
+                            @endif
+                        @endauth
+
                         <td>{{ ucfirst($reserva->estado) }}</td>
                     </tr>
                 @endforeach
@@ -46,6 +60,7 @@
         </table>
     @endif
 </div>
+
 
 
 
