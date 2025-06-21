@@ -19,7 +19,7 @@
       <div class="col-11 col-md-10 col-lg-8">
         
 <!-- Botón circular para editar -->
-<a href="{{ route('cambPerfProf', $profesional->user->id) }}" class="btn btn-light border rounded-circle position-absolute top-40 right-40 end-0 m-5" style="width: 40px; height: 40px;">
+<a href="{{ route('cambPerfProf', $profesional->id) }}" class="btn btn-light border rounded-circle position-absolute top-40 right-40 end-0 m-5" style="width: 40px; height: 40px;">
   <i class="bi bi-pencil-fill"></i>
 </a>
         <h2 class="fw-bold mb-4">Perfil Profesional</h2>
@@ -48,12 +48,23 @@
           <div class="card-body">
 
             <h5 class="fw-bold mb-3"><i class="bi bi-telephone text-primary me-2"></i>Contacto</h5>
-            <p><i class="bi bi-envelope me-2"></i>carlos.mendez@example.com</p>
-            <p><i class="bi bi-phone me-2"></i>+54 11 2345-6789</p>
-            <button class="btn btn-primary w-100 mt-2" data-bs-toggle="modal" data-bs-target="#contactModal">
-              <i class="bi bi-chat-left-text me-1"></i> Enviar mensaje
-            </button>
-
+            <p><i class="bi bi-envelope me-2"></i>{{ $profesional->user->telefono }}</p>
+           @auth
+            @if (auth()->user()->tipo === 'cliente')
+              <a href="{{ route('reservas', ['id' => $profesional->user->id]) }}" class="btn btn-primary w-100 mt-2">
+                RESERVAR
+              </a>
+            @endif
+           @endauth
+           
+            
+            @auth
+            @if (auth()->user()->tipo === 'cliente')
+              <a href="{{ route('reservas', ['id' => $profesional->user->id]) }}" class="btn btn-primary w-100 mt-2">
+                Enviar mensaje
+              </a>
+            @endif
+           @endauth
 
 
             <!-- Reseñas -->

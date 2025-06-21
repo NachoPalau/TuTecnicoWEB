@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Reserva;
 use App\Models\Profesional;
 use App\Models\User;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+
 
 class ReservaController extends Controller
 {
@@ -14,20 +17,112 @@ class ReservaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+
+     
+public function crear(Request $request)
+{
+    $request->validate([
+        'fecha' => 'required|date',
+        'profesional_id' => 'required|exists:profesionales,id',
+        'cliente_id' => 'required|exists:clientes,id',
+    ]);
+
+    // Evitar duplicados: comprobar si ya existe una reserva en esa fecha
+   $yaReservado = Reserva::where('fecha', $request->fecha)
+    ->where('profesional_id', $request->profesional_id)
+    ->where('estado', 'pendiente')
+    ->exists();
+
+    if ($yaReservado) {
+        return redirect()->back();
     }
+
+  $cliente = Cliente::where('user_id', auth()->id())->first();
+
+if (!$cliente) {
+    return redirect()->back();
+}
+
+Reserva::create([
+    'fecha' => $request->fecha,
+    'profesional_id' => $request->profesional_id,
+    'cliente_id' => $cliente->id, 
+    'estado' => 'pendiente',
+]);
+
+
+    return redirect()->back();
+}
+public function cancelar(Request $request, $id)
+{
+    $reserva = Reserva::findOrFail($id); // Usa el ID que Laravel te pasa, no lo fuerces
+
+    $cliente = \App\Models\Cliente::where('user_id', auth()->id())->first();
+
+    if (!$cliente || $reserva->cliente_id !== $cliente->id) {
+        return redirect()->back()->with('error', 'No puedes eliminar esta reserva.');
+    }
+
+    if ($reserva->estado !== 'pendiente') {
+        return redirect()->back()->with('error', 'Solo puedes eliminar reservas pendientes.');
+    }
+
+    $reserva->delete();
+
+    return redirect()->back()->with('success', 'Reserva eliminada correctamente.');
+}
+
+
+
+
+public function mostrarReservas(Request $request, $id) {
+    $profesional = User::findOrFail($id);
+
+    $inicioSemanaStr = $request->query('inicioSemana');
+    if ($inicioSemanaStr && Carbon::hasFormat($inicioSemanaStr, 'Y-m-d')) {
+        $inicioSemana = Carbon::createFromFormat('Y-m-d', $inicioSemanaStr)->startOfWeek();
+    } else {
+        $inicioSemana = Carbon::now()->startOfWeek();
+    }
+
+    $finSemana = $inicioSemana->copy()->addDays(6)->endOfDay();
+
+    $reservas = Reserva::where('profesional_id', $id)
+        ->whereBetween('fecha', [$inicioSemana, $finSemana])
+        ->get();
+
+    $reservasBD = $reservas->keyBy(function($item) {
+        return $item->fecha->format('Y-m-d H:i');
+    });
+
+    return response(view('reservas', compact('reservasBD', 'profesional', 'inicioSemana')));
+}
+
+
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function cambiarEstado(Request $request, $id)
+{
+    $request->validate([
+        'estado' => 'required|in:pendiente,aceptada,rechazada',
+    ]);
+
+    $reserva = Reserva::findOrFail($id);
+
+    if (auth()->user()->profesional->id !== $reserva->profesional_id) {
+        abort(403);
     }
+
+    $reserva->estado = $request->estado;
+    $reserva->save();
+
+    return response(back()->with('ok', 'Estado actualizado'));
+}
+
 
     /**
      * Store a newly created resource in storage.
@@ -37,58 +132,84 @@ class ReservaController extends Controller
      */
    public function store(Request $request)
 {
-    $user = auth()->user();
+    $request->validate([
+        'fecha' => 'required|date',
+        'profesional_id' => 'required|exists:profesionales,id',
+    ]);
 
-    if ($user->tipo == 'profesional') {
-        // lógica para cliente
-    } elseif ($user->tipo== 'cliente') {
-        // lógica para profesional
-    } 
+    Reserva::create([
+        'cliente_id' => auth()->user()->cliente->id,
+        'profesional_id' => $request->input('profesional_id'),
+        'fecha' => $request->input('fecha'),
+        'estado' => 'reservar',
+    ]);
+
+    return response(back()->with('ok', 'Reserva solicitada'));
+}
+
+
+ public function reservas()
+{
+    $inicioSemana = now()->startOfWeek(); // lunes
+
+    // Traer reservas existentes para la semana
+    $reservasBD = Reserva::whereBetween('fecha', [
+        $inicioSemana,
+        $inicioSemana->copy()->addDays(7)
+    ])->get()->keyBy(function ($r) {
+        return $r->fecha->format('Y-m-d H:i');
+    });
+
+    $slots = [];
+
+    // Generar todos los slots posibles de la semana
+    for ($dia = 0; $dia < 7; $dia++) {
+        for ($hora = 8; $hora < 18; $hora += 2) {
+            $slot = $inicioSemana->copy()->addDays($dia)->setTime($hora, 0);
+            $clave = $slot->format('Y-m-d H:i');
+
+            $reserva = $reservasBD->get($clave);
+
+            $slots[] = (object)[
+                'fecha' => $slot,
+                'estado' => $reserva->estado ?? 'reservar',
+                'id' => $reserva->id ?? null,
+            ];
+        }
+    }
+
+    return view('reservas', [
+        'reservas' => $slots,
+        'reservasBD' => $reservasBD,
+        'inicioSemana' => $inicioSemana,
+    ]);
+}
+public function misReservas()
+{
+    $cliente = Cliente::where('user_id', auth()->id())->first();
+
+    if (!$cliente) {
+        abort(403, 'No autorizado.');
+    }
+
+    $reservas = Reserva::with('profesional.user')
+        ->where('cliente_id', $cliente->id)
+        ->orderBy('fecha', 'asc')
+        ->get();
+
+    return view('cliente/misReservas', compact('reservas'));
 }
 
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Reserva  $reserva
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Reserva $reserva)
-    {
-        //
-    }
+    
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Reserva  $reserva
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Reserva $reserva)
-    {
-        //
-    }
+    
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Reserva  $reserva
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Reserva $reserva)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Reserva  $reserva
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Reserva $reserva)
-    {
-        //
-    }
+    
 }

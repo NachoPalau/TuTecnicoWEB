@@ -88,18 +88,14 @@ class ProfesionalController extends Controller
     {
         $clientes = Profesional::with('user')
             ->whereHas('user', function ($query) {
-                $query->where('role', 'cliente');
+                $query->where('tipo', 'cliente');
             })
             ->get();
 
         return view('profesional/clientes', compact('clientes'));
     }
 
-    public function reservas()
-    {
-        // Aquí puedes implementar la lógica para obtener las estadísticas del profesional
-        return view('reservas');
-    }
+    
   public function mensajes()
     {
         // Aquí puedes implementar la lógica para obtener las estadísticas del profesional

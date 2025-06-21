@@ -8,7 +8,7 @@
               <div class="small mt-1">Perfil</div>
           </div>
       </a>
-      <a href="{{ route('reservas') }}" class="text-decoration-none text-dark text-center px-2">
+      <a href="{{ route('reserva.estado',['id'=> auth()->user()->id]) }}" class="text-decoration-none text-dark text-center px-2">
           <div>
               <img src="{{ asset('IMG/navbar-2/calendario.png') }}" alt="Reservas" class="img-fluid" style="width: 24px; height: 24px;">
               <div class="small mt-1">Reservas</div>
@@ -22,19 +22,19 @@
       </a>
 
     @elseif(auth()->user()->tipo === 'cliente') 
-      <a href="{{ route('servicios.index') }}" class="text-decoration-none text-dark text-center px-2">
+      <a href="{{ route('servicios') }}" class="text-decoration-none text-dark text-center px-2">
           <div>
               <img src="{{ asset('IMG/navbar-2/servicios.png') }}" alt="Servicios" class="img-fluid" style="width: 24px; height: 24px;">
               <div class="small mt-1">Servicios</div>
           </div>
       </a>
-      <a href="{{ route('reservas') }}" class="text-decoration-none text-dark text-center px-2">
+      <a href="{{ route('misReservas', ['id'=> auth()->user()->id]) }}" class="text-decoration-none text-dark text-center px-2">
           <div>
               <img src="{{ asset('IMG/navbar-2/calendario.png') }}" alt="Reservas" class="img-fluid" style="width: 24px; height: 24px;">
               <div class="small mt-1">Reservas</div>
           </div>
       </a>
-      <a href="{{ route('mensajes.index') }}" class="text-decoration-none text-dark text-center px-2">
+      <a href="{{ route('mensajes') }}" class="text-decoration-none text-dark text-center px-2">
           <div>
               <img src="{{ asset('IMG/navbar-2/chat.png') }}" alt="Mensajes" class="img-fluid" style="width: 24px; height: 24px;">
               <div class="small mt-1">Mensajes</div>

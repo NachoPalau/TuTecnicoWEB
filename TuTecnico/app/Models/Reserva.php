@@ -14,6 +14,9 @@ class Reserva extends Model
         'fecha',
         'estado',
     ];
+    protected $casts = [
+    'fecha' => 'datetime',
+];
 
     public function cliente()
     {
@@ -24,4 +27,5 @@ class Reserva extends Model
     {
         return $this->belongsTo(Profesional::class);
     }
+    
 }

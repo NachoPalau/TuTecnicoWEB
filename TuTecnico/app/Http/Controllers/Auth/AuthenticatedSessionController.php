@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -32,10 +33,10 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
 
         if ($user->tipo === 'cliente') {
-            return redirect()->route('servicios');
+            return redirect()->route('servicios', ['id' => $user->cliente->id]);
         }
         if ($user->tipo === 'profesional') {
-            return redirect()->route('clientes');
+            return redirect()->route('perfilProf', ['id' => $user->profesional->id]);
         }
 
         // Default redirect if tipo is not recognized
@@ -53,6 +54,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('servicios')->with('status', 'Sesión cerrada correctamente');
     }
 }

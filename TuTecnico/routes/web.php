@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReservaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\PrivateChat;
 use App\Http\Controllers\ProfesionalController;
@@ -10,7 +11,7 @@ Route::get('/', function () {
     return view('cliente/servicios');
 })->name('servicios');
 
-Route::get('profesional/clientes', [ProfesionalController::class, 'clientes'])->name('clientes');
+// Route::get('profesional/clientes', [ProfesionalController::class, 'clientes'])->name('clientes');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -26,8 +27,8 @@ Route::match(['POST'], '/servicio/{especialidad}',
  ->name('cliente/servicio');
 
 
- Route::match(['GET','POST'], '/servicio/',
- [App\Http\Controllers\ProfesionalController::class, 'reservas'])
+ Route::match(['GET','POST'], '/reservas/',
+ [App\Http\Controllers\ReservaController::class, 'reservas'])
  ->name('reservas');
 
  Route::match(['GET','POST'], '/mensajes/',
@@ -52,7 +53,12 @@ Route::match(['get', 'post'], '/perfilProf/{id}', [App\Http\Controllers\Profesio
 Route::middleware(['auth'])->group(function () {
     Route::get('/profesional/estadisticas', [ProfesionalController::class, 'estadisticas'])->name('profesional.estadisticas');
 });
-Route::post('/reservar', [App\Http\Controllers\ReservaController::class, 'store'])->name('reservar');
+Route::post('/reservar', [ReservaController::class, 'store'])->name('reservar');
+Route::post('/reserva/{id}/estado', [ReservaController::class, 'cambiarEstado'])->name('reserva.estado');
+Route::match(['get', 'post'], '/reservas/{id}', [ReservaController::class, 'mostrarReservas'])->name('reservas');
+Route::post('/reserva/crear', [ReservaController::class, 'crear'])->name('reserva.crear');
+Route::post('/reserva/cancelar/{id}', [ReservaController::class, 'cancelar'])->name('reserva.cancelar');
+Route::get('/mis-reservas', [ReservaController::class, 'misReservas'])->name('misReservas')->middleware('auth');
 
 Route::middleware(['auth'])->get('/chat/{chatWithUserId}', PrivateChat::class);
 
