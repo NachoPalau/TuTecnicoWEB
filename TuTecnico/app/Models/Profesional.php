@@ -19,6 +19,11 @@ public function reseñas()
 {
     return $this->hasMany(Reserva::class);
 }
+// App\Models\Profesional.php
+public function reservas()
+{
+    return $this->hasMany(Reserva::class);
+}
 
 
 

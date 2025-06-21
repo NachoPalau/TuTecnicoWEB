@@ -96,11 +96,7 @@ class ProfesionalController extends Controller
     }
 
     
-  public function mensajes()
-    {
-        // Aquí puedes implementar la lógica para obtener las estadísticas del profesional
-        return view('mensajes');
-    }
+    
 
    public function cambPerfProf($id)
 {

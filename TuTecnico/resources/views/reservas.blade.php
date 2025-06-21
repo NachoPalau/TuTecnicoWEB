@@ -72,13 +72,37 @@
       @if($reserva)
           @if($reserva->estado === 'pendiente')
               <form method="POST" action="{{ route('reserva.estado', $reserva->id) }}">
-                  @csrf
-                  <select name="estado" onchange="this.form.submit()" class="form-select form-select-sm">
-                      <option value="">--</option>
-                      <option value="aceptada">Aceptar</option>
-                      <option value="rechazada">Rechazar</option>
-                  </select>
-              </form>
+  @csrf
+  <div class="dropdown">
+    <button class="btn btn-sm btn-warning dropdown-toggle d-flex align-items-center" type="button" id="dropdownEstado" data-bs-toggle="dropdown" aria-expanded="false">
+      <span class="me-2">Pendiente</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+        <path d="M8 3.5a.5.5 0 0 1 .5.5v4.25l3.5 2.1a.5.5 0 1 1-.5.866l-3.75-2.25A.5.5 0 0 1 7.5 8V4a.5.5 0 0 1 .5-.5z"/>
+        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8z"/>
+      </svg>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownEstado">
+      <li>
+        <button type="submit" name="estado" value="aceptada" class="dropdown-item d-flex align-items-center text-success">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle me-2" viewBox="0 0 16 16">
+            <path d="M2.5 8a5.5 5.5 0 1 1 11 0 5.5 5.5 0 0 1-11 0zm7.354-1.354a.5.5 0 0 0-.708 0L7 8.793 6.354 8.146a.5.5 0 1 0-.708.708l1 1a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z"/>
+          </svg>
+          Aceptar
+        </button>
+      </li>
+      <li>
+        <button type="submit" name="estado" value="rechazada" class="dropdown-item d-flex align-items-center text-danger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle me-2" viewBox="0 0 16 16">
+            <path d="M2.5 8a5.5 5.5 0 1 1 11 0 5.5 5.5 0 0 1-11 0zm7.354-1.354a.5.5 0 0 0-.708 0L7 8.793 6.354 8.146a.5.5 0 1 0-.708.708l1 1a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z"/>
+          </svg>
+          Rechazar
+        </button>
+      </li>
+    </ul>
+  </div>
+</form>
+
+
           @else
               {{ ucfirst($reserva->estado) }}
           @endif

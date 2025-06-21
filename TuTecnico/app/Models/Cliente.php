@@ -19,6 +19,8 @@ class Cliente extends Model
     {
         return $this->hasMany(Reserva::class);
     }
+// App\Models\Cliente.php
+
 
 
 }

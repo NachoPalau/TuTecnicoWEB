@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservaController;
 use Illuminate\Support\Facades\Route;
@@ -60,6 +61,11 @@ Route::post('/reserva/crear', [ReservaController::class, 'crear'])->name('reserv
 Route::post('/reserva/cancelar/{id}', [ReservaController::class, 'cancelar'])->name('reserva.cancelar');
 Route::get('/mis-reservas', [ReservaController::class, 'misReservas'])->name('misReservas')->middleware('auth');
 
-Route::middleware(['auth'])->get('/chat/{chatWithUserId}', PrivateChat::class);
+
+
+Route::get('/chat', [ChatController::class, 'ver'])->name('chat.ver');
+Route::post('/chat/enviar', [ChatController::class, 'enviar'])->name('chat.enviar');
+
+Route::get('/seleccionarChat', [ChatController::class, 'seleccionar'])->name('seleccionarChat');
 
 require __DIR__.'/auth.php';

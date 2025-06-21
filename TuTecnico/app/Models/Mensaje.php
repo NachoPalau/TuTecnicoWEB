@@ -4,17 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+// app/Models/Mensaje.php
+
 class Mensaje extends Model
 {
-    protected $fillable = ['de_user_id', 'para_user_id', 'mensaje'];
+    protected $fillable = [
+        'cliente_id', 'profesional_id', 'de_user_id', 'contenido'
+    ];
 
-    public function deUser()
-    {
-        return $this->belongsTo(User::class, 'de_user_id');
-    }
-
-    public function paraUser()
-    {
-        return $this->belongsTo(User::class, 'para_user_id');
-    }
+  public function emisor()
+{
+    return $this->belongsTo(User::class, 'emisor_id');
 }
+}
+
