@@ -61,7 +61,7 @@
     @endif
 </div>
 
-
+@include("componentes/navbar-bottom")
 
 
 </body>

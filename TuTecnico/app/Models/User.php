@@ -18,6 +18,11 @@ class User extends Authenticatable
 {
     return $this->hasOne(Cliente::class);
 }
+public function resenasHechas()
+{
+    return $this->hasMany(\App\Models\Resena::class, 'cliente_id');
+}
+
 public function profesional(){
     return $this->hasOne(Profesional::class);
 }

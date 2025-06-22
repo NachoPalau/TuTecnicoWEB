@@ -24,6 +24,11 @@ public function reservas()
 {
     return $this->hasMany(Reserva::class);
 }
+// En Profesional.php
+public function resenas()
+{
+    return $this->hasMany(Resena::class);
+}
 
 
 

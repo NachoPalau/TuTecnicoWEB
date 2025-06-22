@@ -40,7 +40,7 @@ class ProfesionalController extends Controller
     {
         if ($request->isMethod('get')) {
             // Mostrar vista (equivalente a show)
-            $profesional = Profesional::with('user')->findOrFail($id);
+            $profesional = Profesional::with(['user', 'resenas.cliente.user'])->findOrFail($id);
             return view('profesional/perfilProf', compact('profesional'));
         }
 
@@ -53,7 +53,7 @@ class ProfesionalController extends Controller
                 'descripcion' => 'nullable|string',
             ]);
 
-            $profesional = Profesional::findOrFail($id);
+$profesional = Profesional::with(['user', 'resenas.cliente.user'])->findOrFail($id);
             $user = $profesional->user;
 
             if (!$user) {

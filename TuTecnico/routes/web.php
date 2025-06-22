@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ResenaController;
 use App\Http\Controllers\ReservaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\PrivateChat;
@@ -61,6 +62,8 @@ Route::post('/reserva/crear', [ReservaController::class, 'crear'])->name('reserv
 Route::post('/reserva/cancelar/{id}', [ReservaController::class, 'cancelar'])->name('reserva.cancelar');
 Route::get('/mis-reservas', [ReservaController::class, 'misReservas'])->name('misReservas')->middleware('auth');
 
+Route::get('profesionales/{profesional}/resena/create', [ResenaController::class, 'create'])->name('resenas.create');
+Route::post('/resenas/{profesional}', [ResenaController::class, 'store'])->name('resenas.store');
 
 
 Route::get('/chat', [ChatController::class, 'ver'])->name('chat.ver');
