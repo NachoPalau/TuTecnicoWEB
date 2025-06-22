@@ -44,6 +44,6 @@
     <p class="text-muted fst-italic">No hay usuarios disponibles para chatear.</p>
   @endif
 </div>
-
+@include("componentes/navbar-bottom")
 </body>
 </html>

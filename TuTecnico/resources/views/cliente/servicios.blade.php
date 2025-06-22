@@ -61,7 +61,7 @@
     <div class="services-grid row g-3">
       <!-- Servicio 1: Carpintería -->
       <div class="service-card col-12 col-md-6 col-lg-4">
-        <a href="{{route('cliente/servicio', ['especialidad' => 'carpinteria'])}}">
+        <a href="{{ auth()->check() ? route('cliente/servicio', ['especialidad' => 'carpinteria']) : route('login') }}">
         <img src="IMG/servicios/carpinteria.png" alt="Carpintería" class="service-img">
         </a>
         <p class="service-title">CARPINTERÍA</p>
@@ -69,7 +69,7 @@
 
       <!-- Servicio 2: Electricidad -->
       <div class="service-card col-12 col-md-6 col-lg-4">
-      <a href="{{route('cliente/servicio', ['especialidad' => 'electricidad'])}}">  
+      <a href="{{ auth()->check() ? route('cliente/servicio', ['especialidad' => 'electricidad']) : route('login') }}">  
       <img src="IMG/servicios/electricidad.png" alt="Electricidad" class="service-img">
        </a>
       <p class="service-title">ELECTRICIDAD</p>
@@ -77,7 +77,7 @@
 
       <!-- Servicio 3: Pintura -->
       <div class="service-card col-12 col-md-6 col-lg-4">
-      <a href="{{route('cliente/servicio', ['especialidad' => 'pintura'])}}">
+      <a href="{{ auth()->check() ? route('cliente/servicio', ['especialidad' => 'pintura']) : route('login') }}">
       <img src="IMG/servicios/pintura.png" alt="Pintura" class="service-img">
       </a>  
       <p class="service-title">PINTURA</p>
@@ -85,7 +85,7 @@
 
       <!-- Servicio 4: Fontanería -->
       <div class="service-card col-12 col-md-6 col-lg-4">
-      <a href="{{route('cliente/servicio', ['especialidad' => 'fontaneria'])}}">
+      <a href="{{ auth()->check() ? route('cliente/servicio', ['especialidad' => 'fontaneria']) : route('login') }}">
       <img src="IMG/servicios/fontaneria.png" alt="Fontanería" class="service-img">
       </a>  
       <p class="service-title">FONTANERÍA</p>
@@ -93,7 +93,7 @@
 
       <!-- Servicio 5: Jardinería -->
       <div class="service-card col-12 col-md-6 col-lg-4">
-      <a href="{{route('cliente/servicio', ['especialidad' => 'jardineria'])}}">
+      <a href="{{ auth()->check() ? route('cliente/servicio', ['especialidad' => 'jardineria']) : route('login') }}">
       <img src="IMG/servicios/jardineria.png" alt="Jardinería" class="service-img">
       </a> 
       <p class="service-title">JARDINERÍA</p>
@@ -101,7 +101,7 @@
 
       <!-- Servicio 6: Climatización -->
       <div class="service-card col-12 col-md-6 col-lg-4">
-      <a href="{{route('cliente/servicio', ['especialidad' => 'obra'])}}">
+      <a href="{{ auth()->check() ? route('cliente/servicio', ['especialidad' => 'obra']) : route('login') }}">
       <img src="IMG/servicios/obra.png" alt="Climatización" class="service-img">
       </a>
       <p class="service-title">OBRA</p>
@@ -109,7 +109,7 @@
 
       <!-- Servicio 7: Electrodomésticos -->
       <div class="service-card col-12 col-md-6 col-lg-4">
-      <a href="{{route('cliente/servicio', ['especialidad' => 'mudanza'])}}">
+      <a href="{{ auth()->check() ? route('cliente/servicio', ['especialidad' => 'mudanza']) : route('login') }}">
       <img src="IMG/servicios/mudanzas.png" alt="Electrodomésticos" class="service-img">
       </a>
       <p class="service-title">MUDANZA</p>
@@ -117,7 +117,7 @@
 
       <!-- Servicio 8: Cerrajería -->
       <div class="service-card col-12 col-md-6 col-lg-4">
-      <a href="{{route('cliente/servicio', ['especialidad' => 'cerrajeria'])}}">
+      <a href="{{ auth()->check() ? route('cliente/servicio', ['especialidad' => 'cerrajeria']) : route('login') }}">
       <img src="IMG/servicios/cerrajeria.png" alt="Cerrajería" class="service-img">
       </a>
       <p class="service-title">CERRAJERÍA</p>

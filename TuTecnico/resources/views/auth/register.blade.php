@@ -101,8 +101,14 @@
         @endforeach
               </select>
               <x-input-error :messages="$errors->get('especialidad')" class="mt-1 text-danger" />
-            </div>
 
+
+              <div class="form-group mt-3" id="campo-imagen">
+                <x-input-label for="imagen" :value="__('Imagen de Perfil')" class="input-label" />
+                <input id="imagen" class="form-control" type="file" name="imagen" accept="image/*" />
+                <x-input-error :messages="$errors->get('imagen')" class="mt-1 text-danger" />
+              </div>
+            </div>
 
             <x-input-label for="localidad" :value="__('localidad')" class="input-label" />
             <select id="localidad" name="localidad" class="form-select">
@@ -112,16 +118,9 @@
             </select>
             <x-input-error :messages="$errors->get('localidad')" class="mt-1 text-danger" />
 
-            <div class="form-group mt-3" id="campo-imagen">
-              <x-input-label for="imagen" :value="__('Imagen de Perfil')" />
-              <input id="imagen" class="form-control" type="file" name="imagen" accept="image/*" />
-              <x-input-error :messages="$errors->get('imagen')" class="mt-1 text-danger" />
-            </div>
-
-
 
             <!-- Contraseña -->
-            <div class="form-group">
+            <div class="form-group mt-2">
               <x-input-label for="password" :value="__('Contraseña')" class="input-label" />
               <x-text-input id="password" class="form-control" type="password" name="password" required
                 autocomplete="new-password" />

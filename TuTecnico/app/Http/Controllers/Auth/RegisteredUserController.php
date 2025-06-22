@@ -38,16 +38,16 @@ class RegisteredUserController extends Controller
             'tipo' => ['required', 'in:cliente,profesional'],
             'especialidad' => ['required_if:tipo,profesional', 'nullable', 'string', 'max:255'],
             'localidad' => ['required_if:tipo,profesional', 'string', 'max:255'],
-            'imagen' => ['image', 'max:2048'],
+            'imagen' => ['image'],
         ]);
 
-        $nombreImagen = null;
+        $nombreImagen = 'fotoAvatar.png';
 
         // Subida de imagen solo si es profesional
         if ($request->tipo === 'profesional' && $request->hasFile('imagen') && $request->file('imagen')->isValid()) {
             $imagen = $request->file('imagen');
             $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
-            $imagen->move(public_path('img/perfiles'), $nombreImagen);
+            $imagen->move(public_path('IMG/perfiles'), $nombreImagen);
         }
 
         // Crear el usuario base

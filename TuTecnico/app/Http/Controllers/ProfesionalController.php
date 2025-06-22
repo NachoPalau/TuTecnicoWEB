@@ -11,50 +11,41 @@ class ProfesionalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
-    public function listEspecialidad(Request $request, $especialidad) {
-        // Obtenemos las localidades disponibles usando la relación con la tabla 'users'
-        $localidades = Profesional::join('users', 'profesionales.user_id', '=', 'users.id')
-                                  ->distinct()
-                                  ->pluck('users.localidad');
+
+    public function listEspecialidad(Request $request, $especialidad)
+    {
         
-        // Obtenemos los profesionales de la especialidad seleccionada
+        $localidad = $request->input('localidad');
+
         $profesionales = Profesional::with('user')
-                            ->where('especialidad', $especialidad)
-                            ->get();
+            ->where('especialidad', $especialidad)
+            ->when($localidad, function ($query) use ($localidad) {
+                $query->whereHas('user', function ($q) use ($localidad) {
+                    $q->where('localidad', $localidad);
+                });
+            })
+            ->get();
 
-
-        // Si hay una localidad seleccionada en el POST
-        if ($request->isMethod('post') && $request->has('localidad')) {
-            $localidad = $request->input('localidad');
-            
-            // Modificamos la consulta para filtrar por especialidad y localidad
-            $profesionales = Profesional::where('especialidad', $especialidad)
-                                        ->join('users', 'profesionales.user_id', '=', 'users.id')
-                                        ->where('users.localidad', $localidad)
-                                        ->select('profesionales.*', 'users.localidad')
-                                        ->get();
-        }
-
-        // Retornamos la vista con los datos
         return response(
             view('cliente/servicio', [
-                'localidades' => $localidades,
+                'especialidad' => $especialidad,
                 'profesionales' => $profesionales,
-                'especialidad' => $especialidad
+                'localidadSeleccionada' => $localidad,
+
             ])
         );
     }
-   public function update(Request $request, $id)
-{
-    if ($request->isMethod('get')) {
-        // Mostrar vista (equivalente a show)
-        $profesional = Profesional::with('user')->findOrFail($id);
-        return view('profesional/perfilProf', compact('profesional'));
-    }
 
-    if ($request->isMethod('post')) {
-        // Actualizar datos (equivalente a update)
+    public function update(Request $request, $id)
+    {
+        if ($request->isMethod('get')) {
+            // Mostrar vista (equivalente a show)
+            $profesional = Profesional::with('user')->findOrFail($id);
+            return view('profesional/perfilProf', compact('profesional'));
+        }
+
+        if ($request->isMethod('post')) {
+            // Actualizar datos (equivalente a update)
             $request->validate([
                 'name' => 'required|string',
                 'especialidad' => 'required|string',
@@ -82,7 +73,7 @@ class ProfesionalController extends Controller
             return view('profesional/perfilProf', compact('profesional'))
                 ->with('success', 'Perfil actualizado correctamente.');
         }
-}
+    }
 
     public function clientes()
     {
@@ -95,14 +86,14 @@ class ProfesionalController extends Controller
         return view('profesional/clientes', compact('clientes'));
     }
 
-    
-    
 
-   public function cambPerfProf($id)
-{
-    $profesional = Profesional::with('user')->findOrFail($id);
-    return view('profesional.cambPerfProf', compact('profesional'));
-}
+
+
+    public function cambPerfProf($id)
+    {
+        $profesional = Profesional::with('user')->findOrFail($id);
+        return view('profesional.cambPerfProf', compact('profesional'));
+    }
 
 }
 

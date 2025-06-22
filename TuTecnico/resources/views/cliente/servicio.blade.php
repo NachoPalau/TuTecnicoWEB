@@ -31,9 +31,12 @@
               @csrf
               <select name="localidad" class="form-select" onchange="this.form.submit()">
                 <option value="">Todas las localidades</option>
-                @foreach(\App\Models\User::localidades as $localidad)
-          <option value="{{$localidad}}" @selected(request('localidad') == $localidad)>{{ $localidad }}</option>
+                @foreach(\App\Models\User::localidades as $loc)
+          <option value="{{ $loc }}" {{ $localidadSeleccionada === $loc ? 'selected' : '' }}>
+            {{ $loc }}
+          </option>
         @endforeach
+
               </select>
             </form>
           </div>
@@ -43,8 +46,9 @@
           @forelse($profesionales as $profesional)
         <div class="col-12 col-md-6 col-lg-4">
         <div class="card h-100 shadow-sm"">
-        <a href=" {{ route('perfilProf', ['id' => $profesional->id]) }}" class="text-decoration-none">
-         <img src="{{ asset('usuarios/' . $profesional->user->imagen) }}" alt="Imagen de {{ $profesional->user->name }}" class="card-img-top">
+      <a href=" {{ route('perfilProf', ['id' => $profesional->id]) }}" class="text-decoration-none">
+          <img src="{{ asset('usuarios/' . $profesional->user->imagen) }}"
+          alt="Imagen de {{ $profesional->user->name }}" class="card-img-top">
           <div class="card-body text-center">
           <h3 class="card-title service-title">{{ $profesional->user->name }}</h3>
           <p><strong>Localidad:</strong> {{ $profesional->user->localidad }}</p>
