@@ -19,9 +19,13 @@
       <div class="col-11 col-md-10 col-lg-8">
         
 <!-- Botón circular para editar -->
+ @auth
+ @if (auth()->user()->tipo === 'profesional')
 <a href="{{ route('cambPerfProf', $profesional->id) }}" class="btn btn-light border rounded-circle position-absolute top-40 right-40 end-0 m-5" style="width: 40px; height: 40px;">
   <i class="bi bi-pencil-fill"></i>
 </a>
+@endif
+@endauth
         <h2 class="fw-bold mb-4">Perfil Profesional</h2>
 
         <!-- Foto del perfil centrada -->

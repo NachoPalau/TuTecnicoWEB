@@ -45,5 +45,24 @@
       </a>
     @endif
   @endauth
-
+@guest
+    <a href="{{ route('servicios') }}" class="text-decoration-none text-dark text-center px-2">
+        <div>
+            <img src="{{ asset('IMG/navbar-2/servicios.png') }}" alt="Servicios" class="img-fluid" style="width: 24px; height: 24px;">
+            <div class="small mt-1">Servicios</div>
+        </div>
+    </a>
+    <a href="{{ route('login') }}" class="text-decoration-none text-dark text-center px-2">
+        <div>
+            <img src="{{ asset('IMG/navbar-2/calendario.png') }}" alt="Login" class="img-fluid" style="width: 24px; height: 24px;">
+            <div class="small mt-1">Reservas</div>
+        </div>
+    </a>
+    <a href="{{ route('login') }}" class="text-decoration-none text-dark text-center px-2">
+        <div>
+            <img src="{{ asset('IMG/navbar-2/chat.png') }}" alt="Registro" class="img-fluid" style="width: 24px; height: 24px;">
+            <div class="small mt-1">Mensajes</div>
+        </div>
+    </a>
+  @endguest
 </div>
