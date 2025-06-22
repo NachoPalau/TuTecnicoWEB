@@ -128,7 +128,7 @@ public function mostrarReservas(Request $request, $id) {
     $reserva->estado = $request->estado;
     $reserva->save();
 
-    return response(back()->with('ok', 'Estado actualizado'));
+    return redirect()->back();
 }
 
 

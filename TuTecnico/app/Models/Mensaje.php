@@ -12,9 +12,10 @@ class Mensaje extends Model
         'cliente_id', 'profesional_id', 'de_user_id', 'contenido'
     ];
 
-  public function emisor()
+ public function emisor()
 {
-    return $this->belongsTo(User::class, 'emisor_id');
+    return $this->belongsTo(User::class, 'de_user_id'); // o como se llame tu campo emisor en mensajes
 }
+
 }
 

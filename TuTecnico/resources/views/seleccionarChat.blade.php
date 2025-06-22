@@ -18,14 +18,7 @@
 <div class="container mt-5">
   <h1 class="mb-4 pt-4 fw-bold">Seleccionar Chat</h1>
 
-  @if (session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
-  @endif
-
-  @if (session('error'))
-    <div class="alert alert-danger">{{ session('error') }}</div>
-  @endif
-
+  
   <h4 class="mb-3">Selecciona con quién chatear</h4>
 
   @php
