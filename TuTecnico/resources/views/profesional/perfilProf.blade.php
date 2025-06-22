@@ -67,7 +67,7 @@
             
             @auth
             @if (auth()->user()->tipo === 'cliente')
-              <a href="{{ route('chat.ver', ['id' => auth()->user()->id]) }}" class="btn btn-primary w-100 mt-2">
+              <a href="{{ route('chat.ver', ['profesional_id' => $profesional->id]) }}" class="btn btn-primary w-100 mt-2">
                 Enviar mensaje
               </a>
             @endif
