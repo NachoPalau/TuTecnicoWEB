@@ -9,17 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('reservas', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('cliente_id')->constrained('clientes')->onDelete('cascade');
-    $table->foreignId('profesional_id')->constrained('profesionales')->onDelete('cascade');
-    $table->dateTime('fecha');
-    $table->string('estado', 255)->default('pendiente');
-    $table->timestamps();
-});
-
+            $table->id();
+            $table->unsignedBigInteger('cliente_id');
+            $table->unsignedBigInteger('profesional_id');
+            $table->datetime('fecha');
+            $table->enum('estado', ['cancelar', 'reservar', 'pendiente', 'aceptada', 'rechazada'])->default('pendiente');
+            $table->timestamps();
+            
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
+            $table->foreign('profesional_id')->references('id')->on('profesionales')->onDelete('cascade');
+        });
     }
 
     /**

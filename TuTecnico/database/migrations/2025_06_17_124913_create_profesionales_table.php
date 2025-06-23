@@ -9,17 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-       Schema::create('profesionales', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-    $table->text('especialidad')->nullable();
-    $table->tinyInteger('valoracion')->nullable();
-    $table->string('descripción')->nullable();
-    $table->timestamps();
-});
-
+        Schema::create('profesionales', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->text('especialidad')->nullable();
+            $table->string('descripcion', 255)->nullable();
+            $table->timestamps();
+            
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
     }
 
     /**

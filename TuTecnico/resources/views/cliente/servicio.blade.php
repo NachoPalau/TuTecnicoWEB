@@ -47,8 +47,8 @@
         <div class="col-12 col-md-6 col-lg-4">
         <div class="card h-100 shadow-sm"">
       <a href=" {{ route('perfilProf', ['id' => $profesional->id]) }}" class="text-decoration-none">
-          <img src="{{ asset('usuarios/' . $profesional->user->imagen) }}"
-          alt="Imagen de {{ $profesional->user->name }}" class="card-img-top">
+          <img src="{{ asset('IMG/perfiles/fotoAvatar.png') }}" "
+          alt="Imagen de {{ $profesional->user->name }}" class=" d-block mx-auto ">
           <div class="card-body text-center">
           <h3 class="card-title service-title">{{ $profesional->user->name }}</h3>
           <p><strong>Localidad:</strong> {{ $profesional->user->localidad }}</p>

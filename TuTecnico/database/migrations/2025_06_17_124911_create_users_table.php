@@ -19,6 +19,7 @@ return new class extends Migration
     $table->string('telefono', 30)->nullable();
     $table->string('tipo', 30);
     $table->string('localidad', 30)->nullable();
+    $table->string('imagen', 100)->nullable();
     $table->timestamp('email_verified_at')->nullable();
     $table->rememberToken();
     $table->timestamps();

@@ -16,7 +16,7 @@
 @include("componentes/navbar-top")
 
 <div class="container mt-5">
-  <h1 class="mb-4 pt-4 fw-bold">Seleccionar Chat</h1>
+  <h1 class="mb-4 pt-4 pt-lg-5 fw-bold">Seleccionar Chat</h1>
 
   
   <h4 class="mb-3">Selecciona con quién chatear</h4>

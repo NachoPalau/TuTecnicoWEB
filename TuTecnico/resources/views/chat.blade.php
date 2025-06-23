@@ -11,7 +11,7 @@
 <body style="font-family: 'Montserrat', sans-serif;">
   @include("componentes/navbar-top")
 
-    <div class="card-body m-3 mt-5 pt-3 pt-lg-5" style=" max-height: 90vh; overflow-y: auto;">
+    <div class="card-body m-3 mt-5 pt-3 pt-lg-5" style="  overflow-y: auto;">
     <h1 class="mb-4 fw-semibold">
       Chat con 
       {{ auth()->user()->tipo === 'profesional' 
